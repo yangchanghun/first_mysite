@@ -1,0 +1,27 @@
+<!-- submit버튼을 누르면 아래 주소로 넘어간다 datbase에 변화가 있다 form을 통해서 클릭을하고 submit을하면 vote에 값이 올라간다 -->
+<!-- 변화에 업데이트를 한다 외부에서 값을 확인할 수 없는형태로 간다 
+로직을 짜면돼? 시발련아 
+method post형식으로 get 형식 지금은 post형식 {% csrf_token %} 보안기능인듯  에러있으면 error 뜨고 없으면 안뜨고
+question에 해당하는 choice를 다받아와서 chocie를 받고 input 투표 영역 for loop for문안에서 몇번쨰인지 알아내는 기능이다/ 
+값은 choice id -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<body>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+
+        
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>{{ question.question_text }}</h1></legend>
+            {% if error_message %}
+                <p><strong>{{ error_message }}</strong></p>
+            {% endif %}
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Vote">
+    </form>
+</body>
+

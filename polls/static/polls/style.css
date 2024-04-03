@@ -1,0 +1,8 @@
+/* polls/style.css */
+li a {
+    color: rgb(238, 69, 39);
+}
+
+body {
+    background: white url("images/background.png") no-repeat;
+}
